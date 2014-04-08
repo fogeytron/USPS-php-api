@@ -1,4 +1,7 @@
 <?php
+
+namespace Usps\lib;
+
 /**
  * Array2XML: A class to convert array in PHP to XML
  * It also takes into account attributes names unlike SimpleXML in PHP
@@ -29,7 +32,7 @@
  *       echo $xml->saveXML();
  */
 
-class XMLParser {
+class XmlParser {
 
     private static $xml = null;
 	private static $encoding = 'UTF-8';

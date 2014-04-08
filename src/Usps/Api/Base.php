@@ -1,8 +1,9 @@
 <?php
-/**
- * Load required classes
- */
-require_once('XMLParser.php');
+
+namespace Usps\Api;
+
+use Usps\Api\lib\XmlParser;
+
 /**
  * USPS Base class
  * used to perform the actual api calls

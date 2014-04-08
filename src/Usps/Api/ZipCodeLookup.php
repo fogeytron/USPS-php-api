@@ -1,16 +1,16 @@
 <?php
-/**
- * Load required classes
- */
-require_once('USPSBase.php');
-require_once('USPSAddress.php');
+
+namespace Usps\Api;
+
+use Usps\Api\Models\Address;
+
 /**
  * USPS Zip code lookup by city/state
  * used to find a zip code by city/state lookup
  * @since 1.0
  * @author Vincent Gabriel
  */
-class USPSZipCodeLookup extends USPSBase {
+class ZipCodeLookup extends Base {
   /**
    * @var string - the api version used for this type of call
    */
