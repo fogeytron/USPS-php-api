@@ -16,7 +16,7 @@ use Usps\Api\Models\AbstractBase;
 abstract class AbstractClientBase extends AbstractBase
 {
     const LIVE_API_URL = 'https://secure.shippingapis.com/ShippingAPI.dll';
-    const TEST_API_URL = 'https://secure.shippingapis.com/ShippingAPITest.dll';
+    const TEST_API_URL = 'https://stg-secure.shippingapis.com/ShippingAPI.dll';
 
     protected $allowed = [
         "username",
@@ -159,7 +159,7 @@ abstract class AbstractClientBase extends AbstractBase
         // Add in the sub class data
         $postFields = array_merge($postFields, $this->postFields);
 
-        $xml = XmlParser::createXML($this->apiCodes[$this->apiVersion], $postFields);
+        $xml = Array2Xml::createXML($this->apiCodes[$this->apiVersion], $postFields);
 
         return $xml->saveXML();
     }
