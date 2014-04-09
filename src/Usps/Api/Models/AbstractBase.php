@@ -19,9 +19,7 @@ abstract class AbstractBase
 
     public function __set($k, $v)
     {
-        $k = ucwords($k);
-
-        if (array_key_exists($k, $this->allowed)) {
+        if (in_array($k, $this->allowed)) {
             $this->data[$k] = $v;
             
             return true;
@@ -38,10 +36,12 @@ abstract class AbstractBase
 
     public function __get($k)
     {
-        $k = ucwords($k);
-
         if (array_key_exists($k, $this->data)) {
             return $this->data[$k];
+        }
+        
+        if (in_array($k, $this->allowed)) {
+            return null;
         }
 
         $trace = debug_backtrace();

@@ -10,37 +10,33 @@ use Usps\Api\Models\Address;
  * @since 1.0
  * @author Vincent Gabriel
  */
-class ZipCodeLookup extends Base {
-  /**
-   * @var string - the api version used for this type of call
-   */
-  protected $apiVersion = 'ZipCodeLookup';
-  /**
-   * @var array - list of all addresses added so far
-   */
-  protected $addresses = array();
-  /**
-   * Perform the API call
-   * @return string
-   */
-  public function lookup() {
-    return $this->doRequest();
-  }
-  /**
-   * returns array of all addresses added so far
-   * @return array
-   */
-  public function getPostFields() {
-    return $this->addresses;
-  }
-  /**
-   * Add Address to the stack
-   * @param USPSAddress object $data
-   * @param string $id the address unique id
-   * @return void
-   */
-  public function addAddress(USPSAddress $data, $id=null) {
-    $packageId = $id !== null ? $id : ((count($this->addresses)+1));
-    $this->addresses['Address'][] = array_merge(array('@attributes' => array('ID' => $packageId)), $data->getAddressInfo());
-  }
+class ZipCodeLookup extends AbstractClientBase
+{
+    public function __construct($data = [])
+    {
+        parent::__construct($data);
+        
+        if (empty($this->apiVersion)) $this->apiVersion = "ZipCodeLookup";
+    }
+    
+    /**
+     * Perform the API call
+     * @return string
+     */
+    public function lookup() { return $this->doRequest(); }
+
+    /**
+     * Add Address to the stack
+     * @param Usps\Api\Models\Address object $address
+     * @param string $id the address unique id
+     * @return void
+     */
+    public function addAddress(Address $address, $id = null)
+    {
+        $packageId = $id !== null ? $id : ((count($this->postFields)+1));
+        $postFields = $this->postFields;
+        if (empty($postFields['Address'])) $postFields['Address'] = [];
+        $postFields['Address'][] = array_merge(array('@attributes' => array('ID' => $packageId)), $address->data());
+        $this->postFields = $postFields;
+    }
 }
