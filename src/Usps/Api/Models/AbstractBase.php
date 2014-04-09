@@ -23,6 +23,8 @@ abstract class AbstractBase
 
         if (array_key_exists($k, $this->allowed)) {
             $this->data[$k] = $v;
+            
+            return true;
         }
 
         $trace = debug_backtrace();
